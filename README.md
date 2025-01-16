@@ -110,16 +110,26 @@ Update the `.env` file with database and configuration details.
    │   └── config.py
    ├── fetch
    │   ├── fetch_all_user.py
+   │   ├── count_likes.py
    │   ├── fetch_all_post.py
    │   ├── fetch_all_comment.py
    │   ├── fetch_post_by_user.py
-   │   ├── fetch_single_post_with_their_user_and_comments.py
+   │   ├── fetch_single_post_detail_with_respective_comment_by_their_user.py
+   │   ├── fetch_all_post_created_by_user_along_with_comments.py
+   │   ├── fetch_all_post_detail_with_comment_and_user.py
+   │   ├── fetch_only_comments_on_post.py
+   │   ├── fetch_post_detail_with_their_all_comments.py
+   │   ├── fetch_post_with_respective_user.py
+   │   ├── fetch_the_all_like_by_post_id.py
+   │   ├── insert_bulk_user.py
+   │   ├── insert_bulk_likes.py
    │   └── fetch_all_post_with_their_user_and_comments.py
    ├── router
    │   ├── user.py
    │   ├── post.py
+   │   ├── like.py
    │   └── comment.py
-   ├── exception
+   ├── exceptions
    │   └── exceptions.py
    ├── alembic
    │   ├── versions
