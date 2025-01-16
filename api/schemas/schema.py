@@ -28,6 +28,7 @@ class Post(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int
     created_at: datetime
     updated_at: datetime
 
@@ -63,8 +64,7 @@ class ShowUser(BaseModel):
     gender: str
     dob: date
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ShowPost(BaseModel):
     id: UUID
@@ -72,6 +72,7 @@ class ShowPost(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int
 
     class Config:
         orm_mode = True
@@ -92,6 +93,7 @@ class ShowPostWithUser(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int
 
 class Comments(BaseModel):
     comment: str
@@ -105,6 +107,7 @@ class PostWithComments(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int
     comments: List[str]  # List of comment strings
 
     class Config:
@@ -121,13 +124,16 @@ class UserComments(BaseModel):
 class CommentsOnPost(BaseModel):
     id: UUID
     user_id: UUID
+    user: ShowUser
     title: str
     image: str
     description: str
+    likecount: int
     comments: Dict[str, UserComments]  # Grouped comments by user_id
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PostWithUserAndComments(BaseModel):
     id: UUID
@@ -135,6 +141,7 @@ class PostWithUserAndComments(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int
     comments: Dict[str, UserComments]  # Grouped comments by user_id
 
     class Config:
@@ -149,6 +156,7 @@ class Postdetail(BaseModel):
     title: str
     image: str
     description: str
+    likecount: int    
     comments: List[str]
 
 class UserPostComment(BaseModel):
@@ -158,3 +166,51 @@ class UserPostComment(BaseModel):
     gender: str
     dob: date
     post: Postdetail
+class Like(BaseModel):
+    id: UUID
+    post_id: UUID
+    user_id: UUID
+    is_liked: bool
+    created_at: datetime
+    updated_at: datetime
+
+class DoLike(BaseModel):
+    post_id: UUID
+    user_id: UUID
+    is_liked: bool
+
+class ShowLike(BaseModel):
+    id: UUID
+    post_id: UUID
+    user_id: UUID
+    is_liked: bool
+
+    class Config:
+        orm_mode = True
+
+class all_likes(BaseModel):
+    # like:int
+    is_liked: bool
+class LikeOnPost(BaseModel):
+    post_id: UUID
+    likes: all_likes
+
+class CommentDetail(BaseModel):
+    comment: str
+    created_at: datetime
+    user_id: UUID
+    user: ShowUser
+
+    model_config = ConfigDict(from_attributes=True)
+
+class AllPostDetail(BaseModel):
+    id: UUID
+    title: str
+    image: str
+    description: str
+    likecount: int
+    user_id: UUID
+    user: ShowUser
+    comments: List[CommentDetail]
+
+    model_config = ConfigDict(from_attributes=True)

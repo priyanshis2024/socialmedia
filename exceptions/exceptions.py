@@ -19,3 +19,7 @@ class PostNotFound(HTTPException):
 class CommentNotFound(HTTPException):
     def __init__(self, detail: str = "Comment not found"):
         super().__init__(status_code=404, detail=detail)
+
+class LikeNotFound(HTTPException):
+    def __init__(self, detail: str = "Like not found"):
+        super().__init__(status_code=404, detail=detail)

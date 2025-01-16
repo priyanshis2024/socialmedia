@@ -29,6 +29,7 @@ def get_post_created_by_user_along_with_comments(user_id: UUID,db: Session = Dep
                 title=post.title,
                 image=post.image,
                 description=post.description,
+                likecount=post.likecount,
                 comments=comment_texts
             )
 

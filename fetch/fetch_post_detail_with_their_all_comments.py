@@ -29,6 +29,7 @@ def get_post_detail_with_all_comments(post_id: UUID, db: Session = Depends(get_d
             title=post.title,
             image=post.image,
             description=post.description,
+            likecount=post.likecount,
             comments=comment_texts
         )
     except Exception:

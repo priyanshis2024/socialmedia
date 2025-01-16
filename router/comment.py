@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from api.schemas.schema import Comment, CommentCreate
 from api.database import get_db
 from api.models.model import CommentModel, UserModel, PostModel
-from exceptions.exceptions import UserNotFound,PostNotFound,DatabaseError
+from exceptions.exceptions import UserNotFound,PostNotFound,DatabaseError,CommentNotFound
 
 router = APIRouter()
 
@@ -22,6 +22,8 @@ def create_comment(comment: CommentCreate, db: Session = Depends(get_db)): # req
 
         # Create the comment
         comment_data = CommentModel(id=uuid4(), **comment.dict())
+        if not comment_data:
+            raise CommentNotFound(detail="Comment data not found")
         db.add(comment_data)
         db.commit()
         db.refresh(comment_data)
