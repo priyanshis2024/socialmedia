@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from api.schemas.schema import User, UserCreate
 from uuid import uuid4
 from sqlalchemy.orm import Session
 from api.database import get_db
 from api.models.model import UserModel
+from exceptions.exceptions import DatabaseError
 
 router = APIRouter()
 
@@ -15,5 +16,5 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(user_data)
         return user_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise DatabaseError("An error occurred while fetching data")

@@ -143,3 +143,18 @@ class PostWithUserAndComments(BaseModel):
 class OnlyPostComments(BaseModel):
     id: UUID
     comments: List[str]
+
+class Postdetail(BaseModel):
+    id: UUID
+    title: str
+    image: str
+    description: str
+    comments: List[str]
+
+class UserPostComment(BaseModel):
+    id: UUID
+    fname: str
+    lname: str
+    gender: str
+    dob: date
+    post: Postdetail

@@ -16,7 +16,7 @@ class UserModel(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    posts = relationship("PostModel", back_populates="user")  # Matches PostModel's 'user'
+    post = relationship("PostModel", back_populates="user")  # Matches PostModel's 'user'
     comments = relationship("CommentModel", back_populates="user")  # Matches CommentModel's 'user'
 
 class PostModel(Base):
@@ -30,7 +30,7 @@ class PostModel(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    user = relationship("UserModel", back_populates="posts")  # Matches UserModel's 'posts'
+    user = relationship("UserModel", back_populates="post")  # Matches UserModel's 'posts'
     comments = relationship("CommentModel", back_populates="post")  # Matches CommentModel's 'post'
 
 class CommentModel(Base):
